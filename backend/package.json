@@ -8,7 +8,8 @@
     "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev"
+    "prisma:migrate": "prisma migrate dev",
+    "postinstall": "prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
@@ -25,5 +26,8 @@
     "prisma": "^6.5.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@railway/cli": "^4.0.0"
   }
 }

@@ -1,19 +1,26 @@
 # Use official Node.js image
-FROM node:18-alpine
+FROM node:19-alpine
 
-# Set working directory
-WORKDIR /app
+# Set the working directory inside the container
+WORKDIR /usr/src/app
 
-# Copy package.json and install deps
-COPY package.json ./
-COPY tsconfig.json ./
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the prisma directory
+COPY prisma ./prisma
+
+# Copy the rest of your application code
 COPY . .
 
-RUN npm install
+# Build the TypeScript code
 RUN npm run build
 
-# Expose the port Railway uses
+# Expose the port your app runs on
 EXPOSE 3000
 
-# Start the app
+# Command to run the application
 CMD ["npm", "start"]
