@@ -3,7 +3,9 @@ import * as taskService from '../services/taskService';
 
 export const getAllTasks = async (req: Request, res: Response): Promise<void> => {
   try {
+    console.log('📥 [Controller] GET /api/tasks hit'); // Add log
     const tasks = await taskService.getAllTasks();
+    console.log('📦 [Controller] Tasks fetched:', tasks); // Add log
     res.status(200).json(tasks);
   } catch (error) {
     console.error('Error fetching tasks:', error);
