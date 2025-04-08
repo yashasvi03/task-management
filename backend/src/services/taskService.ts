@@ -1,5 +1,20 @@
-import prisma from '../config/db';
-import { Prisma, Task, Status, Priority } from '@prisma/client';
+import pool from '../db'; // Assuming you’ll use pg Pool in future
+
+// Local type definitions
+export type Status = 'TODO' | 'IN_PROGRESS' | 'DONE';
+export type Priority = 'LOW' | 'MEDIUM' | 'HIGH';
+
+export interface Task {
+  id: number;
+  title: string;
+  description?: string;
+  due_date?: Date;
+  priority?: number;
+  status?: Status;
+  label?: string;
+  created_at?: Date;
+  updated_at?: Date;
+}
 
 export interface CreateTaskDto {
   title: string;
@@ -17,55 +32,29 @@ export interface UpdateTaskDto {
   priority?: Priority;
 }
 
+// ⚠️ These below functions still assume you’re using Prisma.
+// If you're NOT, you’ll need to rewrite them using raw SQL and `pool.query`.
+
 export const getAllTasks = async (): Promise<Task[]> => {
-  return prisma.task.findMany({
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+  throw new Error('Not implemented - requires Prisma or raw SQL setup');
 };
 
 export const getTaskById = async (id: number): Promise<Task | null> => {
-  return prisma.task.findUnique({
-    where: { id },
-  });
+  throw new Error('Not implemented - requires Prisma or raw SQL setup');
 };
 
 export const getTodayTasks = async (): Promise<Task[]> => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  
-  return prisma.task.findMany({
-    where: {
-      dueDate: {
-        gte: today,
-        lt: tomorrow,
-      },
-    },
-    orderBy: {
-      priority: 'desc',
-    },
-  });
+  throw new Error('Not implemented - requires Prisma or raw SQL setup');
 };
 
 export const createTask = async (data: CreateTaskDto): Promise<Task> => {
-  return prisma.task.create({
-    data,
-  });
+  throw new Error('Not implemented - requires Prisma or raw SQL setup');
 };
 
 export const updateTask = async (id: number, data: UpdateTaskDto): Promise<Task> => {
-  return prisma.task.update({
-    where: { id },
-    data,
-  });
+  throw new Error('Not implemented - requires Prisma or raw SQL setup');
 };
 
 export const deleteTask = async (id: number): Promise<Task> => {
-  return prisma.task.delete({
-    where: { id },
-  });
+  throw new Error('Not implemented - requires Prisma or raw SQL setup');
 };
