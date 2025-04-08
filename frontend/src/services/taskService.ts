@@ -2,7 +2,10 @@ import axios from 'axios';
 import { Task, CreateTaskDto, UpdateTaskDto } from '../types/task';
 
 // ✅ This will correctly read the env var
-const API_URL = `${process.env.REACT_APP_API_URL}/api/tasks`;
+//const API_URL = `${process.env.REACT_APP_API_URL}/api/tasks`;
+
+const API_URL = 'https://task-management-backend-production-b066.up.railway.app//api/tasks';
+
 
 console.log("API_URL:", API_URL);
 
