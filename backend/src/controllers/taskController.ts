@@ -2,17 +2,18 @@ import { Request, Response } from 'express';
 import * as taskService from '../services/taskService';
 import pool from '../db';
 
-export const getAllTasks = async (): Promise<any[]> => {
+export const getAllTasks = async (req: Request, res: Response): Promise<void> => {
   try {
-    console.log('📥 [Service] getAllTasks() called');
+    console.log('📥 [Controller] GET /api/tasks hit');
     const result = await pool.query('SELECT * FROM tasks ORDER BY created_at DESC');
-    console.log('📦 [Service] Query result:', result.rows);
-    return result.rows;
-  } catch (err: any) {
-    console.error('🔥 [Service] getAllTasks() DB Error:', err.message);
-    throw err;
+    console.log('📦 [Controller] Tasks fetched:', result.rows);
+    res.status(200).json(result.rows);
+  } catch (error: any) {
+    console.error('🔥 [Controller] DB error:', error.message);
+    res.status(500).json({ message: 'Failed to fetch tasks', error: error.message });
   }
 };
+
 
 
 export const getTaskById = async (req: Request, res: Response): Promise<void> => {
