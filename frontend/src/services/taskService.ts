@@ -4,6 +4,8 @@ import { Task, CreateTaskDto, UpdateTaskDto } from '../types/task';
 // ✅ This will correctly read the env var
 const API_URL = `${process.env.REACT_APP_API_URL}/api/tasks`;
 
+console.log("API_URL:", API_URL);
+
 // ✅ All Tasks
 export const getAllTasks = async (): Promise<Task[]> => {
   try {
